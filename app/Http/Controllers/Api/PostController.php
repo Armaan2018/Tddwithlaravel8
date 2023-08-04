@@ -16,7 +16,13 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+
+        $data = Post::all();
+
+        return response()->json([
+            'message' => 'Post See',
+            'data' => $data->toArray()
+        ], 201);
     }
 
     /**

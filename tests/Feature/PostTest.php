@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Post;
 use Tests\TestCase;
 
 class PostTest extends TestCase
@@ -24,5 +25,18 @@ class PostTest extends TestCase
             'title' => $data['title'],
             'description' => $data['description']
         ]);
+    }
+    /** @test*/
+    public function test_can_read_articles()
+    {
+        $data = Post::all();
+
+        $response = $this->json('GET', '/api/v1/posts');
+
+        $response->assertStatus(201)
+            ->assertJson([
+                'message' => 'Post See',
+                'data' => $data->toArray()
+            ], 201);
     }
 }
