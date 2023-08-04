@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreatePostRequest;
 use App\Models\Post;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class PostController extends Controller
 {
@@ -43,15 +45,15 @@ class PostController extends Controller
      */
     public function store(CreatePostRequest $request)
     {
-        $data = $request->validated();  // only validated request
 
-        $post = Post::create($data);   // creates and return post
+        $data = $request->validated();
 
-        return response()
-            ->json([
-                'data' =>  $post,
-                'message' => 'Post created'
-            ], 201);
+        $post = Post::create($data);
+
+        return response()->json([
+            'data' => $post,
+            'message' => 'Post created'
+        ], 201);
     }
 
     /**
